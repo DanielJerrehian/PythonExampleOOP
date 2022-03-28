@@ -1,4 +1,3 @@
-from multiprocessing.sharedctypes import Value
 import unittest
 from dotenv import load_dotenv
 import uuid
@@ -20,67 +19,67 @@ class TestBlobStorage(unittest.TestCase):
         self.blob_file_link = f"{self.storage_url}/{self.storage_container_name}/{self.file_name}"
         
     def test_object_exists(self):
-        class_object = BlobStorage 
-        self.assertTrue(class_object)
+        blob_storage = BlobStorage 
+        self.assertTrue(blob_storage)
         self.upload_data.close()
         
     def test_get_environment(self):
-        class_object = BlobStorage(storage_container_name=self.storage_container_name) 
-        class_object.get_environment()
-        self.assertEqual(class_object.storage_url, self.storage_url)
-        self.assertEqual(class_object.storage_key, self.storage_key)
+        blob_storage = BlobStorage(storage_container_name=self.storage_container_name) 
+        blob_storage.get_environment()
+        self.assertEqual(blob_storage.storage_url, self.storage_url)
+        self.assertEqual(blob_storage.storage_key, self.storage_key)
         self.upload_data.close()
         
     def test_get_blob_client(self):
-        class_object = BlobStorage(storage_container_name=self.storage_container_name, file_name=self.file_name) 
-        class_object.get_environment()
-        class_object.get_blob_client()
-        self.assertEqual(class_object.blob_client.account_name, self.account_name)
-        class_object.blob_client.close()
+        blob_storage = BlobStorage(storage_container_name=self.storage_container_name, file_name=self.file_name) 
+        blob_storage.get_environment()
+        blob_storage.get_blob_client()
+        self.assertEqual(blob_storage.blob_client.account_name, self.account_name)
+        blob_storage.blob_client.close()
         self.upload_data.close()
     
     def test_get_blob_service_client(self):
-        class_object = BlobStorage(storage_container_name=self.storage_container_name) 
-        class_object.get_environment()
-        class_object.get_blob_service_client()
-        self.assertEqual(class_object.blob_service_client.account_name, self.account_name)
-        self.assertEqual(class_object.storage_container_name, self.storage_container_name)
-        class_object.blob_service_client.close()
+        blob_storage = BlobStorage(storage_container_name=self.storage_container_name) 
+        blob_storage.get_environment()
+        blob_storage.get_blob_service_client()
+        self.assertEqual(blob_storage.blob_service_client.account_name, self.account_name)
+        self.assertEqual(blob_storage.storage_container_name, self.storage_container_name)
+        blob_storage.blob_service_client.close()
         self.upload_data.close()
         
     def test_get_storage_container_client(self):
-        class_object = BlobStorage(storage_container_name=self.storage_container_name) 
-        class_object.get_environment()
-        class_object.get_blob_service_client()
-        class_object.get_storage_container_client()
-        self.assertEqual(class_object.storage_container.container_name, self.storage_container_name)
-        class_object.storage_container.close()
+        blob_storage = BlobStorage(storage_container_name=self.storage_container_name) 
+        blob_storage.get_environment()
+        blob_storage.get_blob_service_client()
+        blob_storage.get_storage_container_client()
+        self.assertEqual(blob_storage.storage_container.container_name, self.storage_container_name)
+        blob_storage.storage_container.close()
         self.upload_data.close()
            
     def test_upload_file_to_container(self):
-        class_object = BlobStorageUpload(storage_container_name=self.storage_container_name, upload_data=self.upload_data, file_name=self.file_name) 
-        class_object.get_environment()
-        class_object.get_blob_service_client()
-        class_object.get_storage_container_client()
-        class_object.upload_data_to_container()
-        class_object.get_blob_client() # to use the exists() method in next line for test 
-        self.assertTrue(class_object.blob_client.exists()) # tests a file exists on blob
-        class_object.storage_container.close()
-        class_object.blob_service_client.close()
-        class_object.blob_client.close()
+        blob_storage = BlobStorageUpload(storage_container_name=self.storage_container_name, upload_data=self.upload_data, file_name=self.file_name) 
+        blob_storage.get_environment()
+        blob_storage.get_blob_service_client()
+        blob_storage.get_storage_container_client()
+        blob_storage.upload_data_to_container()
+        blob_storage.get_blob_client() # to use the exists() method in next line for test 
+        self.assertTrue(blob_storage.blob_client.exists()) # tests a file exists on blob
+        blob_storage.storage_container.close()
+        blob_storage.blob_service_client.close()
+        blob_storage.blob_client.close()
         self.upload_data.close()
         
     def test_upload_file_to_container_file_link(self):
-        class_object = BlobStorageUpload(storage_container_name=self.storage_container_name, upload_data=self.upload_data, file_name=self.file_name) 
-        class_object.get_environment()
-        class_object.get_blob_service_client()
-        class_object.get_storage_container_client()
-        class_object.upload_data_to_container()
-        class_object.get_blob_file_link()
-        class_object.get_blob_client() # to use the exists() method in next line for test 
-        self.assertTrue(class_object.blob_client.exists()) # tests a file exists on blob
-        self.assertEqual(class_object.blob_file_link, self.blob_file_link)
-        class_object.storage_container.close()
-        class_object.blob_service_client.close()
-        class_object.blob_client.close()
+        blob_storage = BlobStorageUpload(storage_container_name=self.storage_container_name, upload_data=self.upload_data, file_name=self.file_name) 
+        blob_storage.get_environment()
+        blob_storage.get_blob_service_client()
+        blob_storage.get_storage_container_client()
+        blob_storage.upload_data_to_container()
+        blob_storage.get_blob_file_link()
+        blob_storage.get_blob_client() # to use the exists() method in next line for test 
+        self.assertTrue(blob_storage.blob_client.exists()) # tests a file exists on blob
+        self.assertEqual(blob_storage.blob_file_link, self.blob_file_link)
+        blob_storage.storage_container.close()
+        blob_storage.blob_service_client.close()
+        blob_storage.blob_client.close()
         self.upload_data.close()
